@@ -28,9 +28,9 @@ function Header() {
         width={40} height={40} 
         alt=''
         />
-        <div className="flex ml-2 items-center rounded-full bg-gray-100 p-2">
+        <div className="flex mx-2 items-center rounded-full bg-gray-100 p-2">
           <SearchIcon className="h-6 mr-2 text-gray-500"/>
-          <input className="flex items-center bg-transparent 
+          <input className="hidden md:inline-flex items-center bg-transparent 
           outline-none placeholder-gray-500 flex-shrink" 
           type="text" placeholder="Search Facebook" />
         </div>
@@ -40,7 +40,7 @@ function Header() {
 
       {/* flex grow means i want it to grow to take extra space compared to other divs */}
       <div className="flex justify-center flex-grow">
-        <div className="flex space-x-6 md:space-x-2">
+        <div className="flex space-x-5 md:space-x-1">
           <HeaderIcon active Icon={HomeIcon} />
           <HeaderIcon Icon={FlagIcon} />
           <HeaderIcon Icon={PlayIcon} />
@@ -50,6 +50,17 @@ function Header() {
       </div>
       
       {/* right */}
+
+      <div className="flex items-center sm:space-x-2 justify-end">
+        {/* <Image /> */}
+
+        <p className="whitespace-norag font-semibold pr-3">Insert Name</p>
+        <ViewGridIcon className="icon" />
+        <ChatIcon className="icon" />
+        <BellIcon className="icon" />
+        <ChevronDownIcon className="icon" />
+      
+      </div>
     
     </div>
   )
