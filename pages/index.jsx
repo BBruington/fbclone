@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
 import { getSession } from 'next-auth/react'
+import Login from '../components/Login'
 
 export async function getServerSideProps(context) {
   //get user
