@@ -59,14 +59,14 @@ function Header({fbuser}) {
         <Image 
         alt="profile picture"
         onClick={()=> signOut()}
-        className="rounded-full cursor-pointer md:mr-2"
+        className="rounded-full cursor-pointer sm:ml-3 md:mr-2"
         src={fbuser.user.image}
         width={40}
         height={40}
         layout="fixed"
         />
 
-        <p className="whitespace-norag font-semibold lg:pr-3">{fbuser.user.name}</p>
+        <p className="whitespace-nowrap font-semibold lg:pr-3">{fbuser.user.name}</p>
         <ViewGridIcon className="icon" />
         <ChatIcon className="icon" />
         <BellIcon className="icon" />
