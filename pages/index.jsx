@@ -1,24 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Header from '../components/Header'
-import { getSession } from 'next-auth/react'
-import Login from '../components/Login'
+import Head from 'next/head';
+import Image from 'next/image';
+import Header from '../components/Header';
+import { getSession, useSession } from 'next-auth/react';
+import Login from '../components/Login';
 
-export async function getServerSideProps(context) {
-  //get user
-  const session = await getSession(context);
+// export const getServerSideProps= async (context) => {
+//   //get user
+//   const session = await getSession(context);
+//   console.log("session 1.0", session)
 
-  return {
-    props: {
-      session
-    }
-  }
-}
+//   return {
+//     props: {
+//       session
+//     }
+//   }
+// }
 
-export default function Home(props) {
+export default function Home() {
 
-  const { session } = props;
-  if(!session) return <Login />
+  const { data: session, status } = useSession()
+  console.log(session)
+
+  if(!session) return <Login />;
 
   return (
     <div>
@@ -30,7 +33,7 @@ export default function Home(props) {
       </Head>
 
       {/* Header */}
-      <Header />
+      <Header fbuser={session}/>
 
       <main>
         {/* Sidebar */}

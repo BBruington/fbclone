@@ -13,10 +13,14 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
+
+
+
 import HeaderIcon from "./HeaderIcon";
 
-function Header() {
 
+function Header({fbuser}) {
+  
   return (
     <div className="flex items-center sticky top-0 z-50 
     bg-white p-2 lg:px-5 shadow-md">
@@ -39,8 +43,8 @@ function Header() {
       {/* middle */}
 
       {/* flex grow means i want it to grow to take extra space compared to other divs */}
-      <div className="flex justify-center flex-grow">
-        <div className="flex space-x-5 md:space-x-1">
+      <div className="flex justify-center flex-grow md:ml-5 lg:ml-1">
+        <div className="flex space-x-5 md:space-x-0 ">
           <HeaderIcon active Icon={HomeIcon} />
           <HeaderIcon Icon={FlagIcon} />
           <HeaderIcon Icon={PlayIcon} />
@@ -52,9 +56,17 @@ function Header() {
       {/* right */}
 
       <div className="flex items-center sm:space-x-2 justify-end">
-        {/* <Image /> */}
+        <Image 
+        alt="profile picture"
+        onClick={()=> signOut()}
+        className="rounded-full cursor-pointer md:mr-2"
+        src={fbuser.user.image}
+        width={40}
+        height={40}
+        layout="fixed"
+        />
 
-        <p className="whitespace-norag font-semibold pr-3">Insert Name</p>
+        <p className="whitespace-norag font-semibold lg:pr-3">{fbuser.user.name}</p>
         <ViewGridIcon className="icon" />
         <ChatIcon className="icon" />
         <BellIcon className="icon" />
