@@ -1,11 +1,24 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
-import { Inter } from '@next/font/google'
+import { getSession } from 'next-auth/react'
 
-const inter = Inter({ subsets: ['latin'] })
+export async function getServerSideProps(context) {
+  //get user
+  const session = await getSession(context);
 
-export default function Home() {
+  return {
+    props: {
+      session
+    }
+  }
+}
+
+export default function Home(props) {
+
+  const { session } = props;
+  if(!session) return <Login />
+
   return (
     <div>
       <Head>
