@@ -13,9 +13,7 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
-
-
-
+import { signOut } from "next-auth/react";
 import HeaderIcon from "./HeaderIcon";
 
 
@@ -58,7 +56,7 @@ function Header({fbuser}) {
       <div className="flex items-center sm:space-x-2 justify-end">
         <Image 
         alt="profile picture"
-        onClick={()=> signOut()}
+        onClick={signOut}
         className="rounded-full cursor-pointer sm:ml-3 md:mr-2"
         src={fbuser.user.image}
         width={40}
