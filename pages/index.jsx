@@ -2,7 +2,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Header from '../components/Header';
 import Login from '../components/Login';
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../components/Sidebar';
+import Feed from '../components/Feed';
 import { useSession } from 'next-auth/react';
 
 // export const getServerSideProps= async (context) => {
@@ -20,7 +21,6 @@ import { useSession } from 'next-auth/react';
 export default function Home() {
 
   const { data: session, status } = useSession()
-  console.log(session)
 
   if(!session) return <Login />;
 
@@ -43,6 +43,9 @@ export default function Home() {
         <Sidebar fbuser={session} />
 
         {/* Feed */}
+
+        <Feed />
+
         {/* Widgets */}
       </main>
     </div>
