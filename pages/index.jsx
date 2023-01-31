@@ -44,7 +44,7 @@ export default function Home() {
 
         {/* Feed */}
 
-        <Feed />
+        <Feed fbuser={session}/>
 
         {/* Widgets */}
       </main>

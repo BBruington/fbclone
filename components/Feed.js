@@ -1,7 +1,7 @@
 import Stories from './Stories';
 import InputBox from './InputBox';
 
-export default function Feed() {
+export default function Feed({fbuser}) {
 
   return (
     <div className='flex-grow h-screen pb-44 pt-6
@@ -14,7 +14,7 @@ export default function Feed() {
 
         {/* Input Box */}
 
-        <InputBox />
+        <InputBox fbuser={fbuser}/>
 
         {/* Posts */}
 
