@@ -1,4 +1,5 @@
 import Stories from './Stories';
+import InputBox from './InputBox';
 
 export default function Feed() {
 
@@ -12,6 +13,8 @@ export default function Feed() {
         <Stories />
 
         {/* Input Box */}
+
+        <InputBox />
 
         {/* Posts */}
 
