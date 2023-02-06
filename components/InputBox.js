@@ -3,7 +3,7 @@ import { EmojiHappyIcon } from "@heroicons/react/solid";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 import { useRef } from "react";
 import { feedCollectionRef, db } from "../utils/firebase";
-import { addDoc, updateDoc, doc } from 'firebase/firestore';
+import { addDoc, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 export default function InputBox({fbuser}) {
 
@@ -11,14 +11,14 @@ export default function InputBox({fbuser}) {
 
   const sendPost = async (e) => {
     e.preventDefault();
-    //if (!inputRef.current.value) return;
+    if (!inputRef.current.value) return;
 
     await addDoc(feedCollectionRef, {
       message: inputRef.current.value,
       name: fbuser.user.name,
       email: fbuser.user.email,
       image: fbuser.user.image,
-      timestamp: Date.now()/1000,
+      timestamp: serverTimestamp()
     });
 
     // db.collection('post').add({
