@@ -52,7 +52,7 @@ export default function InputBox({fbuser}) {
             placeholder={`what's on your mind, ${fbuser.user.name}?`} 
           />
 
-          <button className="hidden" type='submit' onsubmit={sendPost}>Submit</button>
+          <button className="" type='submit' onClick={sendPost}></button>
         </form>
       </div>
 
