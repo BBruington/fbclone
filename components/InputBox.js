@@ -4,6 +4,8 @@ import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 
 export default function InputBox({fbuser}) {
 
+  
+
   const sendPost = (e) => {
     e.preventDefault();
   }
@@ -37,7 +39,7 @@ export default function InputBox({fbuser}) {
           <p className="text-xs sm:text-sm xl:text-base">Live Video</p>
         </div>
         <div className="inputIcon">
-        <CameraIcon className="h-7 text-green-400" />
+          <CameraIcon className="h-7 text-green-400" />
           <p className="text-xs sm:text-sm xl:text-base">Phote/Video</p>
         </div>
         <div className="inputIcon">
