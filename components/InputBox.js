@@ -1,13 +1,27 @@
 import Image from "next/legacy/image"
 import { EmojiHappyIcon } from "@heroicons/react/solid";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
+import { useRef } from "react";
+import { db } from "../utils/firebase";
+import firebase from "firebase/compat/app";
 
 export default function InputBox({fbuser}) {
 
-  
+  const inputRef = useRef(null);
 
   const sendPost = (e) => {
     e.preventDefault();
+    if (!inputRef.current.value) return;
+
+    db.collection('post').add({
+      message: inputRef.current.value,
+      name: fbuser.user.name,
+      email: fbuser.user.email,
+      image: fbuser.user.image,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+
+    inputRef.current.value = "";
   }
 
   return (
@@ -26,6 +40,7 @@ export default function InputBox({fbuser}) {
           <input 
             className="rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none"
             type="text" 
+            ref={inputRef}
             placeholder={`what's on your mind, ${fbuser.user.name}?`} 
           />
 
