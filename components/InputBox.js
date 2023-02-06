@@ -2,24 +2,32 @@ import Image from "next/legacy/image"
 import { EmojiHappyIcon } from "@heroicons/react/solid";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 import { useRef } from "react";
-import { db } from "../utils/firebase";
-import firebase from "firebase/compat/app";
+import { feedCollectionRef, db } from "../utils/firebase";
+import { addDoc, updateDoc, doc } from 'firebase/firestore';
 
 export default function InputBox({fbuser}) {
 
   const inputRef = useRef(null);
 
-  const sendPost = (e) => {
+  const sendPost = async (e) => {
     e.preventDefault();
-    if (!inputRef.current.value) return;
+    //if (!inputRef.current.value) return;
 
-    db.collection('post').add({
+    await addDoc(feedCollectionRef, {
       message: inputRef.current.value,
       name: fbuser.user.name,
       email: fbuser.user.email,
       image: fbuser.user.image,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
+      timestamp: Date.now()/1000,
+    });
+
+    // db.collection('post').add({
+    //   message: inputRef.current.value,
+    //   name: fbuser.user.name,
+    //   email: fbuser.user.email,
+    //   image: fbuser.user.image,
+    //   timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    // })
 
     inputRef.current.value = "";
   }
@@ -44,7 +52,7 @@ export default function InputBox({fbuser}) {
             placeholder={`what's on your mind, ${fbuser.user.name}?`} 
           />
 
-          <button hidden type='submit' onClick={sendPost}>Submit</button>
+          <button className="hidden" type='submit' onsubmit={sendPost}>Submit</button>
         </form>
       </div>
 
