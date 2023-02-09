@@ -3,7 +3,7 @@ import { EmojiHappyIcon } from "@heroicons/react/solid";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
 import { feedCollectionRef, db } from "../utils/firebase";
-import { addDoc, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function InputBox({fbuser}) {
 
@@ -21,7 +21,22 @@ export default function InputBox({fbuser}) {
       email: fbuser.user.email,
       image: fbuser.user.image,
       timestamp: serverTimestamp()
-    });
+    }).then(doc => {
+      if (imageToFeed) {
+        const uploadTask = storage.ref(`posts/${doc.id}`).putString(imageToFeed, 'data_url')
+
+        removeImage();
+
+        uploadTask.on("state_change", null, error => console.error(error), () => {
+          //when the upload completes
+          storage.ref('posts').child(doc.id).getDownloadURL().then(url => {
+            db.collection('posts').doc(doc.id).set({
+              postImage: url
+            }, { merge: true })
+          })
+        })
+      }
+    })
 
     // db.collection('post').add({
     //   message: inputRef.current.value,
@@ -74,7 +89,7 @@ export default function InputBox({fbuser}) {
 
         {imageToFeed && (
           <div onClick={removeImage} className="flex flex-col filter hover:brightness-110 
-          transition duration-150 transform hover:scale-105 cursor:pointer">
+          transition duration-150 transform hover:scale-105 cursor-pointer">
             <img 
               className="h-10 object-contain" 
               src={imageToFeed}
@@ -92,7 +107,7 @@ export default function InputBox({fbuser}) {
         </div>
         <div onClick={() => filePickerRef.current.click()} className="inputIcon">
           <CameraIcon className="h-7 text-green-400" />
-          <p className="text-xs sm:text-sm xl:text-base">Phote/Video</p>
+          <p className="text-xs sm:text-sm xl:text-base">Photo/Video</p>
           <input ref={filePickerRef} onChange={addImageToPost} type="file" hidden />
         </div>
         <div className="inputIcon">
