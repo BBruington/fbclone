@@ -24,11 +24,9 @@ export default function InputBox({fbuser}) {
       image: fbuser.user.image,
       timestamp: serverTimestamp()
     }).then(doc => {
-      console.log("here is image", imageToFeed);
       if (imageToFeed) {
         const storage = getStorage();
         const feedRef = ref(storage, `${fbuser.user.name} feed image`); 
-        console.log("feed Reference", feedRef)
         uploadBytes(feedRef, imageToFeed);
         removeImage();
 
