@@ -4,6 +4,8 @@ import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
 import { feedCollectionRef, db } from "../utils/firebase";
 import { addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { ref, uploadBytes, getStorage } from "firebase/storage";
+
 
 export default function InputBox({fbuser}) {
 
@@ -22,19 +24,22 @@ export default function InputBox({fbuser}) {
       image: fbuser.user.image,
       timestamp: serverTimestamp()
     }).then(doc => {
+      console.log("here is image", imageToFeed);
       if (imageToFeed) {
-        const uploadTask = storage.ref(`posts/${doc.id}`).putString(imageToFeed, 'data_url')
-
+        const storage = getStorage();
+        const feedRef = ref(storage, `${fbuser.user.name} feed image`); 
+        console.log("feed Reference", feedRef)
+        uploadBytes(feedRef, imageToFeed);
         removeImage();
 
-        uploadTask.on("state_change", null, error => console.error(error), () => {
-          //when the upload completes
-          storage.ref('posts').child(doc.id).getDownloadURL().then(url => {
-            db.collection('posts').doc(doc.id).set({
-              postImage: url
-            }, { merge: true })
-          })
-        })
+        // uploadTask.on("state_change", null, error => console.error(error), () => {
+        //   //when the upload completes
+        //   storage.ref('posts').child(doc.id).getDownloadURL().then(url => {
+        //     db.collection('posts').doc(doc.id).set({
+        //       postImage: url
+        //     }, { merge: true })
+        //   })
+        // })
       }
     })
 
