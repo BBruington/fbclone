@@ -1,5 +1,6 @@
 import Stories from './Stories';
 import InputBox from './InputBox';
+import Posts from './Posts';
 
 export default function Feed({fbuser}) {
 
@@ -17,6 +18,8 @@ export default function Feed({fbuser}) {
         <InputBox fbuser={fbuser}/>
 
         {/* Posts */}
+
+        <Posts />
 
       </div>
     </div>
