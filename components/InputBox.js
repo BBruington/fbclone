@@ -3,7 +3,7 @@ import { EmojiHappyIcon } from "@heroicons/react/solid";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
 import { feedCollectionRef, db } from "../utils/firebase";
-import { addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { addDoc, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getStorage } from "firebase/storage";
 
 
@@ -16,38 +16,21 @@ export default function InputBox({fbuser}) {
   const sendPost = async (e) => {
     e.preventDefault();
     if (!inputRef.current.value) return;
-
+    if (imageToFeed) {
+      const storage = getStorage();
+      const feedRef = ref(storage, `${fbuser.user.name} feed image test`); 
+      await uploadBytes(feedRef, imageToFeed);
+      
+    }
     await addDoc(feedCollectionRef, {
       message: inputRef.current.value,
       name: fbuser.user.name,
       email: fbuser.user.email,
       image: fbuser.user.image,
-      timestamp: serverTimestamp()
-    }).then(doc => {
-      if (imageToFeed) {
-        const storage = getStorage();
-        const feedRef = ref(storage, `${fbuser.user.name} feed image`); 
-        uploadBytes(feedRef, imageToFeed);
-        removeImage();
-
-        // uploadTask.on("state_change", null, error => console.error(error), () => {
-        //   //when the upload completes
-        //   storage.ref('posts').child(doc.id).getDownloadURL().then(url => {
-        //     db.collection('posts').doc(doc.id).set({
-        //       postImage: url
-        //     }, { merge: true })
-        //   })
-        // })
-      }
+      timestamp: serverTimestamp(),
+      postImage: imageToFeed,
     })
-
-    // db.collection('post').add({
-    //   message: inputRef.current.value,
-    //   name: fbuser.user.name,
-    //   email: fbuser.user.email,
-    //   image: fbuser.user.image,
-    //   timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    // })
+    setImageToFeed(null);
 
     inputRef.current.value = "";
   }
