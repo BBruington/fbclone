@@ -6,20 +6,33 @@ import { db, app } from "../utils/firebase";
 export default function Posts() {
 
   const [realtimePosts, loading, error] = useCollection(
-    //db.collection('feed').orderBy('timestamp', 'desc')
-    collection( getFirestore(app), 'feed'),
+    collection( db, 'feed'),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  // console.log(realtimePosts)
+   console.log('realtimeposts', realtimePosts);
+   console.log('error', error);
+   console.log('loading', loading);
 
   return (
     <div>
+      <div>name</div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
-      {realtimePosts && realtimePosts.docs.map( post => {
-          <Post />
+      {realtimePosts && realtimePosts?.docs.map( post => {
+          <>
+            <Post 
+              key={post.id}
+              name={post.data().name}
+              message={post.data().message}
+              email={post.data().email}
+              timestamp={post.data().timestamp}
+              image={post.data().image}
+              postImage={post.data().postImage}
+              />
+            <div>test</div>
+          </>
         })
       }
     </div>
