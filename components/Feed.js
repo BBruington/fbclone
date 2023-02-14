@@ -20,7 +20,6 @@ export default function Feed({fbuser}) {
         {/* Posts */}
 
         <Posts />
-        <div>post</div>
 
       </div>
     </div>

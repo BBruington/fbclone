@@ -11,16 +11,13 @@ export default function Posts() {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-   console.log('realtimeposts', realtimePosts);
-   console.log('error', error);
-   console.log('loading', loading);
 
   return (
     <div>
       <div>name</div>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
-      {realtimePosts && realtimePosts?.docs.map( post => {
+      {/* {error && <strong>Error: {JSON.stringify(error)}</strong>}
+      {loading && <span>Collection: Loading...</span>} */}
+      {realtimePosts && realtimePosts?.docs.map( post => (
           <>
             <Post 
               key={post.id}
@@ -31,9 +28,8 @@ export default function Posts() {
               image={post.data().image}
               postImage={post.data().postImage}
               />
-            <div>test</div>
           </>
-        })
+      ))
       }
     </div>
   )
