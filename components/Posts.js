@@ -14,7 +14,6 @@ export default function Posts() {
 
   return (
     <div>
-      <div>name</div>
       {/* {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>} */}
       {realtimePosts && realtimePosts?.docs.map( post => (
