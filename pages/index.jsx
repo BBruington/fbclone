@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Header from '../components/Header';
 import Login from '../components/Login';
 import Sidebar from '../components/Sidebar';
 import Feed from '../components/Feed';
+import Widgets from '../components/Widgets';
 import { useSession } from 'next-auth/react';
 
 // export const getServerSideProps= async (context) => {
@@ -47,6 +47,9 @@ export default function Home() {
         <Feed fbuser={session}/>
 
         {/* Widgets */}
+
+        <Widgets />
+
       </main>
     </div>
   )
