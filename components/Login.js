@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { signIn } from 'next-auth/react'
+import Image from 'next/legacy/image';
+import { signIn } from 'next-auth/react';
 
 export default function Login() {
 

@@ -6,18 +6,6 @@ import Feed from '../components/Feed';
 import Widgets from '../components/Widgets';
 import { useSession } from 'next-auth/react';
 
-// export const getServerSideProps= async (context) => {
-//   //get user
-//   const session = await getSession(context);
-//   console.log("session 1.0", session)
-
-//   return {
-//     props: {
-//       session
-//     }
-//   }
-// }
-
 export default function Home() {
 
   const { data: session, status } = useSession()
